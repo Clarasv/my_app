@@ -63,7 +63,7 @@ body {
 /* ヘッダー ================================ */
 header {
   height: 64px;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 100%;
 }
@@ -77,7 +77,7 @@ header {
 }
 
 .header-logo a{
-  color: white;
+  color: black;
   font-size: 22px;
 }
 
@@ -90,14 +90,14 @@ header {
   float: left;
   line-height: 64px;
   font-size: 13px;
-  color: white;
+  color: black;
   padding-left: 15px;
 }
 
 .header-menus a {
   float: left;
   font-size: 13px;
-  color: white;
+  color: black;
 }
 
 .header-menus .fa {
@@ -108,9 +108,28 @@ header {
   padding: 0 20px;
   float: left;
   line-height: 64px;
-  color: white;
+  color: black;
   margin: 0;
   font-size: 13px;
+}
+
+.mask {
+  height: 100%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,  /* 画面の一番上を始点とし、画面下部の方向にグラデーションがかかる*/
+    rgba(0, 0, 0, 0) 50px,  /* グラデーションの始まるポイント。透明度1.0 */
+    black 70px, /* グラデーションの終わるポイント。透明度0 */
+    rgb(0, 0, 0) -webkit-calc(100% - 70px), /* 画面下部のグラデーションの始まるポイント。透明度0 */
+    rgba(0, 0, 0, 0) -webkit-calc(100% - 50px) /* 画面下部のグラデーションの終わるポイント。透明度1.0 */
+  );
+  mask-image: linear-gradient( /* 上記と同じ設定 */
+    to bottom,
+    rgba(0, 0, 0, 0) 50px,
+    black 70px,
+    rgb(0, 0, 0) -webkit-calc(100% - 70px),
+    rgba(0, 0, 0, 0) -webkit-calc(100% - 50px)
+  );
+  position: relative;
 }
 
 /* top ================================ */
@@ -127,6 +146,7 @@ header {
   background-repeat: no-repeat;
   background-position: center 50%;
   background-size: cover;
+  background-image: url("/chastle.jpeg");
 }
 
 .top-message {
@@ -237,3 +257,4 @@ header {
   border-radius: 0 0 2px 2px;
   font-size: 14px;
 }
+

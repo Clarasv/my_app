@@ -5,8 +5,11 @@
         <%= @post.title %>
       </p>
       <div class="post-time">
-        <!-- @postのcreated_atカラムのデータを表示してください -->
         <%= @post.created_at %>
+        <div class="post-menus">
+        <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+        <%= button_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+      </div>
       </div>
     </div>
   </div>
