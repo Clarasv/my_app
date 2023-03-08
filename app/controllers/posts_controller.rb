@@ -8,13 +8,17 @@ class PostsController < ApplicationController
   end 
   
   def new
+    @post = Post.new
   end 
   
   def create
     @post = Post.new(title: params[:title])
     if @post.save
       redirect_to("/posts/index")
-    end
+      flash[:notice] = "投稿が完了しました"
+    else
+      render("posts/new")
+    end 
   end
   
   def edit
@@ -22,10 +26,13 @@ class PostsController < ApplicationController
   end
 
   def update
-    @upd = Post.find_by(id: params[:id])
-    @upd.title = params[:title]
-    if @upd.save
+    @edit = Post.find_by(id: params[:id])
+    @edit.title = params[:title]
+    if @edit.save
      redirect_to("/posts/index")
+     flash[:notice] = "投稿を編集しました"
+    else
+      render("/posts/edit")
     end
   end
   
