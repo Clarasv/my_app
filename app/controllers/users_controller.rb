@@ -20,8 +20,7 @@ class UsersController < ApplicationController
       redirect_to("/users/index")
       flash[:notice] = "登録が完了しました！"
     else
-      render("/users/new")
-      flash[:notice] = "登録に失敗しました"
+      render("/users/new", status: :unprocessable_entity)
     end
   end 
 

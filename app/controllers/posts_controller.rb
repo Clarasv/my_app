@@ -17,7 +17,7 @@ class PostsController < ApplicationController
       redirect_to("/posts/index")
       flash[:notice] = "投稿が完了しました"
     else
-      render("posts/new")
+      render("posts/new", status: :unprocessable_entity)
     end 
   end
   
