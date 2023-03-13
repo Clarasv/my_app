@@ -32,7 +32,7 @@ class PostsController < ApplicationController
      redirect_to("/posts/index")
      flash[:notice] = "投稿を編集しました"
     else
-      render("/posts/edit")
+      render("/posts/edit", status: :unprocessable_entity)
     end
   end
   
