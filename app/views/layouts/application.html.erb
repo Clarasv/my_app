@@ -15,9 +15,12 @@
       <%= link_to("Tweetapp", "/") %>
     </div>
     <ul class="header-menus">
-      <li>
-       <%= link_to("TweetAppとは", "/about") %>
-      </li>
+         <% if session[:user_id] %>
+          <li>
+            アカウント名:
+            <!-- コードを追加し、ログイン中のユーザーのidを表示してください -->
+            <%= session[:user_id] %>
+          </li>
       <li>
        <%= link_to("投稿一覧", "/posts/index") %>
       </li>
@@ -28,15 +31,22 @@
         <%= link_to("ユーザー一覧", "/users/index") %>
       </li>
       <li>
-        <%= link_to("新規登録", "/signup") %>
+        <%= link_to("ログアウト", "/logout"), {turbo_method: post} %>
+      </li>
+       <% else %>
+            <li>
+       <%= link_to("TweetAppとは", "/about") %>
       </li>
       <li>
         <%= link_to("ログイン","/login") %>
       </li>
+      <li>
+        <%= link_to("新規登録", "/signup") %>
+      </li>
     </ul>
+    <% end %>
   </header>
   
-  <!-- flash[:notice]に代入されたメッセージを表示してください -->
     <% if flash[:notice] %>
       <div class="flash">
         <%= flash[:notice] %>
