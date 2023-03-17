@@ -48,4 +48,17 @@ class UsersController < ApplicationController
    end
   end 
   
+  def login_form
+  end
+  
+  def login
+    @loginuser = User.find_by(email: params[:email], password: params[:password])
+   if @loginuser
+     flash[:notice] = "ログインしました"
+     redirect_to("/posts/index")
+   else
+     render("users/login_form", status: :unprocessable_entity)
+   end
+  end
+  
 end
