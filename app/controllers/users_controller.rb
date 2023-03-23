@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, {only: [:index, :show, :edit, :update]}
+  before_action :ensure_current_user, {only: [:edit, :update]}
+  
   def index
    @users = User.all
   end
@@ -15,9 +18,11 @@ class UsersController < ApplicationController
     @newuser = User.new(
       name: params[:name],
       email: params[:email],
-      image_name: "default_user.jpg"
+      image_name: "default_user.jpg",
+      password: params[:password]
       )
     if @newuser.save
+      session[:user_id] = @newuser.id
       redirect_to("/users/index")
       flash[:notice] = "登録が完了しました！"
     else
@@ -54,7 +59,7 @@ class UsersController < ApplicationController
   def login
     @loginuser = User.find_by(email: params[:email], password: params[:password])
    if @loginuser
-     session[:user_id] = @loginuser.name
+     session[:user_id] = @loginuser.id
      flash[:notice] = "ログインしました"
      redirect_to("/posts/index")
    else
@@ -69,6 +74,13 @@ class UsersController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
     redirect_to("/login", status: :see_other)
+  end
+  
+  def ensure_current_user
+    if @current_user.id != params[:id].to_i
+      flash[:notice] = "編集権限がありません"
+      redirect_to("/posts/index")
+    end
   end
   
 end

@@ -15,11 +15,9 @@
       <%= link_to("Tweetapp", "/") %>
     </div>
     <ul class="header-menus">
-         <% if session[:user_id] %>
+         <% if @current_user %>
           <li>
-            アカウント名:
-            <!-- コードを追加し、ログイン中のユーザーのidを表示してください -->
-            <%= session[:user_id] %>
+            <%= link_to("ログインユーザー："+ @current_user.name, "/users/#{@current_user.id}") %>
           </li>
       <li>
        <%= link_to("投稿一覧", "/posts/index") %>
@@ -31,7 +29,7 @@
         <%= link_to("ユーザー一覧", "/users/index") %>
       </li>
       <li>
-        <%= link_to("ログアウト", "/logout"), {turbo_method: post} %>
+        <%= link_to("ログアウト", logout_path, data: {turbo_method: :post}) %>
       </li>
        <% else %>
             <li>
