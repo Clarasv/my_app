@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user
+  before_action :ensure_current_user, {only: [:edit, :update, :destroy]}
   
   def index
     @post = Post.all.order(created_at: :desc)
@@ -7,7 +8,7 @@ class PostsController < ApplicationController
   
   def show 
     @post = Post.find_by(id: params[:id])
-    @user = User.find_by(id: @post.user_id)
+    @user = @post.user
   end 
   
   def new
@@ -49,5 +50,13 @@ class PostsController < ApplicationController
      redirect_to("/posts/index", allow_other_host: true)
     end
   end 
+  
+    def ensure_current_user
+     @post = Post.find_by(id: params[:id])
+     if @post.user_id != @current_user.id
+      flash[:notice] = "[警告！]　現在のユーザーには指定URLの編集権限がありません。"
+      redirect_to("/posts/index")
+     end
+    end
   
 end

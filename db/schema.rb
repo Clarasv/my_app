@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_23_114700) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_24_103032) do
+  create_table "likes", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.text "title"
     t.datetime "created_at", null: false

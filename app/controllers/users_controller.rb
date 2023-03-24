@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   
   def ensure_current_user
     if @current_user.id != params[:id].to_i
-      flash[:notice] = "編集権限がありません"
+      flash[:notice] = "[警告！]　現在のユーザーには指定URLの編集権限がありません。"
       redirect_to("/posts/index")
     end
   end
