@@ -17,6 +17,7 @@
         <input name="image" type="file" value="<%= @edituser.image_name %>">
         <input type="submit" value="保存">
         <% end %>
+        <%= button_to("このユーザーを削除する", "/users/#{@edituser.id}/destroy", data: {turbo_method: :post}) %>
       </div>
     </div>
   </div>

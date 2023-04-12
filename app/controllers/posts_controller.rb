@@ -21,8 +21,8 @@ class PostsController < ApplicationController
       user_id: @current_user.id
       )
     if @post.save
-      redirect_to("/posts/index")
       flash[:notice] = "投稿が完了しました"
+      redirect_to("/posts/index")
     else
       render("posts/new", status: :unprocessable_entity)
     end 

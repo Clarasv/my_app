@@ -49,16 +49,24 @@ class UsersController < ApplicationController
      flash[:notice] = "ユーザー情報を編集しました"
      redirect_to("/users/index")
    else 
-     render("/users/#{@edituser.id}/edit", status: :unprocessable_entity)
+     render :edit, status: :unprocessable_entity
    end
+  end 
+  
+  def destroy
+    @edituser = User.find_by(id: params[:id])
+    if @edituser.destroy
+     flash[:notice] = "アカウントを削除しました"
+     render :login_form, status: :unprocessable_entity
+    end
   end 
   
   def login_form
   end
   
   def login
-    @loginuser = User.find_by(email: params[:email], password: params[:password])
-   if @loginuser
+    @loginuser = User.find_by(email: params[:email])
+   if @loginuser && @loginuser.authenticate(params[:password])
      session[:user_id] = @loginuser.id
      flash[:notice] = "ログインしました"
      redirect_to("/posts/index")

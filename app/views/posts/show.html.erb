@@ -11,7 +11,7 @@
         <div class="post-menus">
           
        <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
-         <% link_to("/likes/#{@post.id}/destroy", data: {turbo_method: :post}) do %>
+         <%= link_to("/likes/#{@post.id}/destroy", data: {turbo_method: :post}) do %>
           <span class="fa fa-heart liked-btn"></span>
          <% end %>
         <% else %>
