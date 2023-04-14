@@ -35,4 +35,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-end
+  
+  # resource :users do
+  #  resource :relevances, only: {:create, :destroy}
+  #  get :followings, on :member
+  #  get :followers, on :member
+  # end 
+ end
