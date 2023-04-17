@@ -23,10 +23,10 @@ class UsersController < ApplicationController
       )
     if @newuser.save
       session[:user_id] = @newuser.id
-      redirect_to("/users/index")
+      redirect_to users_path(@newuser.id)
       flash[:notice] = "登録が完了しました！"
     else
-      render("/users/new", status: :unprocessable_entity)
+      render(signup_users_path, status: :unprocessable_entity)
     end
   end 
   
@@ -47,9 +47,9 @@ class UsersController < ApplicationController
 
    if @edituser.save
      flash[:notice] = "ユーザー情報を編集しました"
-     redirect_to("/users/index")
+     redirect_to users_path
    else 
-     render :edit, status: :unprocessable_entity
+     render edit_users_path, status: :unprocessable_entity
    end
   end 
   
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @edituser = User.find_by(id: params[:id])
     if @edituser.destroy
      flash[:notice] = "アカウントを削除しました"
-     render :login_form, status: :unprocessable_entity
+     render login_users_path, status: :unprocessable_entity
     end
   end 
   
@@ -69,19 +69,19 @@ class UsersController < ApplicationController
    if @loginuser && @loginuser.authenticate(params[:password])
      session[:user_id] = @loginuser.id
      flash[:notice] = "ログインしました"
-     redirect_to("/posts/index")
+     redirect_to posts_index_path
    else
      @error_message = "ログインに失敗しました"
      @email = params[:email]
      @password = params[:password]
-     render("users/login_form", status: :unprocessable_entity)
+     render(login_users_path, status: :unprocessable_entity)
    end
   end
   
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    redirect_to("/login", status: :see_other)
+    redirect_to(login_users_path, status: :see_other)
   end
   
   def ensure_current_user

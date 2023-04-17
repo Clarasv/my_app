@@ -20,7 +20,7 @@
     <ul class="header-menus">
          <% if @current_user %>
           <li>
-            <%= link_to("ログインユーザー："+ @current_user.name, "/users/#{@current_user.id}") %>
+            <%= link_to("ログインユーザー："+ @current_user.name, "users/#{@current_user.id}") %>
           </li>
       <li>
        <%= link_to("投稿一覧", posts_index_path) %>
@@ -29,20 +29,20 @@
        <%= link_to("新規投稿", posts_new_path) %>
       </li>
       <li>
-        <%= link_to("ユーザー一覧", users_index_path) %>
+        <%= link_to("ユーザー一覧", users_path) %>
       </li>
       <li>
-        <%= link_to("ログアウト", logout_path, data: {turbo_method: :post}) %>
+        <%= link_to("ログアウト",  logout_users_path, data: {turbo_method: :post}) %>
       </li>
        <% else %>
             <li>
        <%= link_to("TweetAppとは", about_path) %>
       </li>
       <li>
-        <%= link_to("ログイン", login_path) %>
+        <%= link_to("ログイン", login_users_path) %>
       </li>
       <li>
-        <%= link_to("新規登録", signup_path) %>
+        <%= link_to("新規登録", signup_users_path) %>
       </li>
     </ul>
     <% end %>
@@ -58,6 +58,3 @@
     <%= yield %>
   </body>
 </html>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>

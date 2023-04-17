@@ -10,7 +10,7 @@
           </div>
         <% end %>
         
-        <%= form_tag("/users/create", {multipart: true}) do %>
+        <%= form_tag(users_create_path, {multipart: true}) do %>
         <p>ユーザー名</p>
         <input name="name" value="<%= @newuser.name %>">
         

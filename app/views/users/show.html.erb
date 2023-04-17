@@ -5,7 +5,17 @@
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
     <% if @user.id == @current_user.id %>
-      <%= link_to("編集", "/users/#{@user.id}/edit") %>
+      <%= link_to("編集", edit_user_path) %>
+       <% else %>
+         <% if Relevance.find_by(following_id: @current_user.id) %>
+          <%= link_to(user_relevances_path(@user), data: {turbo_method: :delete}) do %>
+          <button class="btn btn-danger">フォロー解除</button>
+         <% end %>
+        <% else%>
+          <%= link_to(user_relevances_path(@user), data: {turbo_method: :post}) do %>
+          <button class="btn btn-primary">フォロー</button>
+         <% end %>
+        <% end %>
     <% end %>
     </div>
       <% @user.posts.each do |post| %>
@@ -21,5 +31,5 @@
         </div>
       </div>
       <% end %>
-  </div>
+   </div>
 </div>

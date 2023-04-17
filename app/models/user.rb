@@ -11,4 +11,8 @@ class User < ApplicationRecord
   
   has_many :reverse_of_relevances, class_name: 'Relevance', foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relevances, source: :following
+  
+  # def is_followed_by?(user)
+  #   reverse_of_relevances.find_by(following_id: user.id).present?
+  # end
 end
