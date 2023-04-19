@@ -7,7 +7,7 @@
     <% if @user.id == @current_user.id %>
       <%= link_to("編集", edit_user_path) %>
        <% else %>
-         <% if Relevance.find_by(following_id: @current_user.id) %>
+         <% if @current_user.relevances.find_by(follower_id: @user.id) %>
           <%= link_to(user_relevances_path(@user), data: {turbo_method: :delete}) do %>
           <button class="btn btn-danger">フォロー解除</button>
          <% end %>
